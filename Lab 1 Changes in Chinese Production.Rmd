@@ -7,6 +7,17 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(dbplyr)
+library(ggplot2)
+library(markdown)
+library(tidyverse)
 ```
 
-### Why are Beijing and Shanghai included in our data?
+```{r}
+chineseData = read.csv("China_EO_49to17.csv")
+
+newData = as_tibble(chineseData)
+ggplot(newData) +
+geom_point(mapping = aes(x = Year, y = Beijing_Output))
+
+```
