@@ -26,6 +26,20 @@ Data <- read.csv("China_EO_49to17.csv", fileEncoding = "latin1")
   
 #Part 1.2
   It would be more reliable to use older data than current data because of how unreliable China’s information is. There was a lot of faking of data in the 90’. The data between 2000-2011 is considered the most accurate give or take. According to Bloomberg, “If the official data lacks credibility, alternative narratives—like an economy on the verge of a hard landing—can take hold,” says Tom Orlik. To validate this, Economist writes “And China’s national GDP figure is laughably out of line with the sum of its provincial GDP figures. The various levels of government cannot keep their statistical stories straight.” The article articulates on how China has data that doesn’t correspond with other information discrediting the information. Since China has a difficult time concluding there true worth, it has gained a reputation to produce false information. Sara from Forbes writes, “But after years of producing growth even in the darkest of circumstances, China has gained a reputation for possibly overestimating its growth rate.” This further recognizes how the more time goes by, the more unreliable China’s data actually is. 
+  
+### Specific years to look out for in our data
+
+Because of the reasons listed above it is importent to talk about which years may not be as reliable as others in our data. There might be points that we have missed, but the following points are improtant to note while looking at our plots.
+
+1. __1991-1994__: "Beijing fully adopted the international System of National Accounting (SNA) in 1995, which is designed to measure indicators of relevance to a market economy". Following this, it was revealed that that industrial data had serious problems with realiability. 
+
+2. __1983-2011__: Statistical reforms are prevalent through this timeline meaning that definitions of output, output, GDP, etc. change. 
+
+3. __1959-1962__: Called "The Great Leap Forward", China faced extreme declines in argiculure and local officials manipulated their data to reflect this more postively.
+
+4. __1980's__: (already listed but for different reasons and slightly different range). China suffered large inflation and unemployment, but reported growth when some scholars believe it contracted in 1989.
+
+5. __1998__: Asian Financial Crisis occurs. China still reports growth despite significant decline in certain industries (mostly energy consumption and airline travel). Also when the NBS revised historical data in 2005, 1998 was not given any revision.
 
 #Part1 Citations
 https://www.bloomberg.com/news/articles/2018-04-19/china-s-economic-stats-have-a-credibility-problem
@@ -36,6 +50,7 @@ https://www.forbes.com/sites/sarahsu/2017/01/23/chinas-gdp-numbers-can-we-trust-
 
 https://www.bloomberg.com/news/articles/2018-04-19/china-s-economic-stats-have-a- 
 
+U.S.-China Economic and Security Review Commission Staff Research Project(2013) (included in repo)
 
 #Part 2.2
 ```{r PART2.2, include = TRUE}
