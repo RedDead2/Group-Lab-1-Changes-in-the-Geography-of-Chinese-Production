@@ -1,7 +1,7 @@
 ---
-title: "Lab 1"
+title: "Lab 1 Group  Project"
 
-author: "Emmanuel Robi"
+author: "Emmanuel Robi, Andrew Baker, Jamie Marken, Alberto Melendez, James Lyou"
 
 date: "January 22, 2019"
 
