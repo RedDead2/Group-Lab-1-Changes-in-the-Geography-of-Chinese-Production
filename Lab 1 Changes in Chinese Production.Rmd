@@ -18,6 +18,9 @@ chineseData = read.csv("China_EO_49to17.csv")
 
 newData = as_tibble(chineseData)
 ggplot(newData) +
-geom_point(mapping = aes(x = Year, y = Beijing_Output))
+  geom_line(mapping = aes(x = Year, y = Beijing_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Beijing_Enterprise, color = "blue"))+
+  ggtitle("Beijing output vs. Beijing Enterprise")
+
 
 ```
