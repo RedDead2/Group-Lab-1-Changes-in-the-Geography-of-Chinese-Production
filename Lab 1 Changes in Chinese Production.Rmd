@@ -13,7 +13,7 @@ library(markdown)
 library(tidyverse)
 ```
 
-```{r}
+```{r, echo=FALSE}
 chineseData = read.csv("China_EO_49to17.csv")
 
 newData = as_tibble(chineseData)
@@ -22,5 +22,32 @@ ggplot(newData) +
   geom_line(mapping = aes(x = Year, y = Beijing_Enterprise, color = "blue"))+
   ggtitle("Beijing output vs. Beijing Enterprise")
 
-
 ```
+
+# Isssues with Chinese Statistics
+Chinese Stastics on their economy has been deemed by agencies of modern countries has somewhat unreliable relative to their 
+western counterparts (Europe and the US) for many reasons. According to the U.S.-China Economic and Security Review Commission Staff Research Project in 2013, it was reported that China's economc growth was too consistent and stable and that few economists doubt that China could perform as strongly as it is suggesting. 
+
+The first reason is that China has incomplete survey coverage over the entire state. For example, China's survey from the national Burea of statistics (a chinese government agency) fail to capture household income accurately. Chinese households are taxed on their income, but not non-wage income like real estate or bonuses. They are supposed to report such income, but many do not or understate wat they are making because there are political implications for having so much wealth. many also flat out refuse to participate in the survey.  
+
+The second reason is that system of direct reporting to the NBS is outdated and cannot handle such large volumes of data. Frequently, the burea raises the revenue threshold for reporting to state and non-state companies in order to reduce data volumes. This means that those companies may not be adequetlly reflected in the survey later on.
+
+The third reason is that the NBS does not use the expediture measure for GDP is widely accepted as the superior method of of analyzing growth. China uses value added by industry as their primary measure of GDP which "adds up the net output of agriculture, industry, and services, focusing on what the economy supplies rather than what it consumes. Most advanced economies, including the United States, prefer the expenditure measure of GDP, which adds up consumption, gross capital formation, and net exports... because it represents what comes out of the economy that is actually used by citizens, business, government, and the rest of the world".
+
+The fourth reason is that there is a theory that China manipulates its data during hardships. These are often refered to as "winds of falsification"(These timelines will be refered to later to look out in our data). the reason this happens is that officials will be afraid to report negative numbers for fear of being removed or losing a promotion.
+
+The fifth reason is that national and province data sometimes does not add up. Also some data does not exist from certain provinceswhich raises very serious concerns on the credibility of china's data (https://www.nytimes.com/2018/01/18/business/china-gdp-economy-growth.html).
+
+### Years to look out for in our data
+
+Because of the reasons listed above it is importent to talk about which years may not be as reliable as others in our data. There might be points that we have missed, but the following points are improtant to note while looking at our plots.
+
+1. __1991-1994__: "Beijing fully adopted the international System of National Accounting (SNA) in 1995, which is designed to measure indicators of relevance to a market economy". Following this, it was revealed that that industrial data had serious problems with realiability. 
+
+2. __1983-2011__: Statistical reforms are prevalent through this timeline meaning that definitions of output, output, GDP, etc. change. 
+
+3. __1959-1962__: Called "The Great Leap Forward", China faced extreme declines in argiculure and local officials manipulated their data to reflect this more postively. 
+
+4. __1980's__: (already listed but for different reasons and slightly different range). China suffered large inflation and unemployment, but reported growth when some scholars believe it contracted in 1989.
+
+5. __1998__: Asian Financial Crisis occurs. China still reports growth despite significant decline in certain industries (mostly energy consumption and airline travel). Also when the NBS revised historical data in 2005, 1998 was not given any revision.
