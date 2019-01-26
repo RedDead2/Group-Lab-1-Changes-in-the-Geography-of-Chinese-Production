@@ -1,0 +1,97 @@
+---
+title: "Group Lab 1"
+author: "James Lyou"
+date: "January 23, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(tidyverse)
+
+#PART 3 TASK 1
+
+object1=read.csv("China_EO_49to17.csv")
+
+object2=as_tibble(object1)
+
+#This function returns a table consisting of the province outputs of prov1, prov2, and the output ratio of the two
+outputRatio = function(prov1, prov2){
+colProv1 = paste(prov1, "Output", sep = "_")
+colProv2 = paste(prov2, "Output", sep = "_")
+compareTable = select(object2, Year, colProv1, colProv2)
+compareTable = na.omit(compareTable)
+ratio = compareTable[, 2] / compareTable[, 3]
+ratioTable = cbind(compareTable, ratio)
+colnames(ratioTable) = c("Year", colProv1, colProv2, "Output_Ratio")
+return(ratioTable)
+}
+
+#This function draws a point and smooth line plot of the province outputs.
+#ratioTable is the resulting table from the outputRatio function.
+plotComparisons = function(ratioTable) {
+ ggplot(data = ratioTable) + 
+   geom_point(mapping = aes(x = Year, y = ratioTable[, 2], color = "red")) + 
+   geom_point(mapping = aes(x = Year, y = ratioTable[, 3], color = "green")) +
+   geom_smooth(mapping = aes(x = Year, y = ratioTable[, 2], color = "red")) + 
+   geom_smooth(mapping = aes(x = Year, y = ratioTable[, 3], color = "green")) +
+   labs(title = paste(colnames(ratioTable[2]), "vs", colnames(ratioTable[3]), sep = " "), y = "Province_Output", color = "Legend") + 
+   scale_color_manual(labels = c(colnames(ratioTable[3]), colnames(ratioTable[2])), values = c("red", "green"))
+}
+
+#This function draws a point and smooth line plot of the output ratios of the provinces
+#ratioTable is the resulting table from the outputRatio function
+plotRatios = function(ratioTable) {
+ ggplot(data = ratioTable) + geom_smooth(mapping = aes(x = Year, y = Output_Ratio)) +
+   geom_point(mapping = aes(x = Year, y = Output_Ratio)) + 
+   labs(title = paste(colnames(ratioTable[4]), "of", colnames(ratioTable[2]), "and", colnames(ratioTable[3]), sep = " "))
+}
+
+Shandong_Fujian = outputRatio("Shandong", "Fujian")
+Shandong_Fujian
+plotComparisons(Shandong_Fujian)
+plotRatios(Shandong_Fujian)
+
+Guangdong_Liaoning = outputRatio("Guangdong", "Liaoning")
+Guangdong_Liaoning
+plotComparisons(Guangdong_Liaoning)
+plotRatios(Guangdong_Liaoning)
+```
+
+When it came to dealing with the NA values, I completely omitted them from the table.  This is because those cells simply have no data to compare with which can skew data if left in.
+
+```{r}
+#PART 3 TASK 6
+
+sumColumns = colSums(object1[, -1], na.rm = TRUE)
+
+summedDF = matrix(sumColumns, ncol = 62, byrow = TRUE)
+summedDF = as.data.frame(summedDF, stringAsFactors = FALSE)
+
+northEnterprise = rowSums(summedDF[, c(1, 3, 5, 7, 9)])
+northOutput = rowSums(summedDF[, c(2, 4, 6, 8, 10)])
+
+northEastEnterprise = rowSums(summedDF[, c(11, 13, 15)])
+northEastOutput = rowSums(summedDF[, c(12, 14, 16)])
+
+eastEnterprise = rowSums(summedDF[, c(17, 19, 21, 23, 25, 27, 29)])
+eastOutput = rowSums(summedDF[, c(18, 20, 22, 24, 26, 28, 30)])
+
+southCenEnterprise = rowSums(summedDF[, c(31, 33, 35, 37, 39, 41)])
+southCenOutput = rowSums(summedDF[, c(32, 34, 36, 38, 40, 42)])
+
+southWestEnterprise = rowSums(summedDF[, c(43, 45, 47, 49, 51)])
+southWestOutput = rowSums(summedDF[, c(44, 46, 48, 50, 52)])
+
+northWestEnterprise = rowSums(summedDF[, c(53, 55, 57, 59, 61)])
+northWestOutput = rowSums(summedDF[, c(54, 56, 58, 60, 62)])
+
+regionDF = data.frame(northEnterprise, northOutput, northEastEnterprise, northEastOutput, eastEnterprise, eastOutput, southCenEnterprise, southCenOutput, southWestEnterprise, southWestOutput, northWestEnterprise, northWestOutput)
+
+names(regionDF) = c("North_Ent", "North_Out", "NorthEast_Ent", "NorthEast_Out", "East_Ent", "East_Out", "SouthCentral_Ent", "SouthCentral_Out", "SouthWest_Ent", "SouthWest_Out", "NorthWest_Ent", "NorthWest_Out")
+
+regionDF
+```
