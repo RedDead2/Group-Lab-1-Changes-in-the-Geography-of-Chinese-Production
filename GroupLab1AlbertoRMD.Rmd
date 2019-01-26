@@ -1,0 +1,57 @@
+---
+title: "GroupLab1Alberto"
+author: "Alberto Melendez"
+date: "January 24, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r A bar plot of the employed population in Shanghai}
+library(dplyr)
+library(stringr)
+#read csv
+shanghai <- read.csv("ShanghaiData.csv")
+shanghai <- as.data.frame(shanghai)
+
+#Rename the column names
+names(shanghai) <- c("Year", "Total_Number_of_Employed_Persons_by_10000",
+                     "Employed_Persons_in_UrbanAreas_by_10000", 
+                     "Employed_Persons_in_RuralAreas_by_10000",
+                     "Employed_Persons_in_Primary_Industry_by_10000",
+                     "Employed_Persons_in_Secondary_Industry_by_10000",
+                     "Employed_Persons_by_Tertiary_Industry_by_10000",
+                     "Staffand_Workers_by_10000",
+                     "Staffand_Workers_State_owned_Units_by_10000",
+                     "Staffand_Workers_Urban_Collective_Owned_Units_by_10000",
+                     "Staffand_Workers_Other_Ownership_Units_by_10000")
+
+#Delete the first 4 rows with the column names as values(nothing else).
+n <- 4
+
+shanghai_rows <- shanghai[-(1:n), , drop = FALSE]
+
+#Delate the last 2 rows with the column names as values(nothing else).
+shanghai_rows2 <- head(shanghai_rows, -2)
+
+#Convert the Year column from string to numeric by inputting a numeric
+#vector with a sequence from 1949 to 2013
+shanghai_rows2$Year <- c(1949:2013) 
+
+#Taking data from 2004 to 2013(most recent available data)
+shanghai_data <- shanghai_rows2 %>% 
+                 filter(Year > 2003)
+```
+
+```{r }
+library(ggplot2)
+
+ggplot(shanghai_data) +
+  geom_bar(mapping = aes(x = Year, y = Total_Number_of_Employed_Persons_by_10000), stat = "identity") + 
+  labs(title = "Total Population of the Employed in Shanghai",
+       x = "Year",
+       y = "Total Population(By 10000 persons)") +
+  coord_flip()
+```
