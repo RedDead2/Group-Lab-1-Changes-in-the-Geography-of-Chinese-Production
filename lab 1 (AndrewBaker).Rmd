@@ -66,7 +66,13 @@ ggplot(chineseData) +
 ```
 
 # 3.3 Trend Exploration
-Here we have a comparison of the 8 economic regions of China. The most obious trend is that most of the enterprises and RMD output are on China's coast, which makes sense because China has a large manufacturing economy focused on shipping. Every region's RMD output is signifcantly reduced during the Asian Finanical Crisis in 1998.
+Here we have a comparison of the 8 economic regions of China. The most obious trend is that most of the enterprises and RMD output are on China's coast, which makes sense because China has a large manufacturing economy focused on shipping. Every region's RMD output is signifcantly reduced during the Asian Finanical Crisis in 1998. The build-up to it thought is very similar to the mortage crisis tha occured in the US though.
+
+Output is lower in every graph, but enterprise goes up as well. possible they are the same enterprises. 
+
+Shanghai and Beijing both start off the economic growth in the 1940's and the rest follow.
+
+# 3.2 
 
 
 
