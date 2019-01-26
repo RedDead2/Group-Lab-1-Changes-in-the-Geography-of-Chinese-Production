@@ -16,13 +16,59 @@ library(tidyverse)
 ```{r, echo=FALSE}
 chineseData = read.csv("China_EO_49to17.csv")
 
-newData = as_tibble(chineseData)
-ggplot(newData) +
+ggplot(chineseData) +
   geom_line(mapping = aes(x = Year, y = Beijing_Output, color = "red"))+
   geom_line(mapping = aes(x = Year, y = Beijing_Enterprise, color = "blue"))+
-  ggtitle("Beijing output vs. Beijing Enterprise")
+  labs(title="Beijing output vs.Amount of Enterprise", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Shanghai_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Shanghai_Enterprise, color = "blue"))+
+  labs(title="Shanghai output vs.Amount of Enterprise (Southeastern China", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Shanxi_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Shanxi_Enterprise, color = "blue"))+
+  labs(title="Shanxi output vs.Amount of Enterprise (central-Eastern China", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Fujian_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Fujian_Enterprise, color = "blue"))+
+  labs(title="Fujian output vs.Amount of Enterprise (Greater Guangdong)", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Ningxia_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Ningxia_Enterprise, color = "blue"))+
+  labs(title="Ningxia output vs.Amount of Enterprise (Northwest China)", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Qinghai_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Qinghai_Enterprise, color = "blue"))+
+  labs(title="Qinghai output vs.Amount of Enterprise (West China)", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Liaoning_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Liaoning_Enterprise, color = "blue"))+
+  labs(title="Liaoning output vs.Amount of Enterprise (Northeast China)", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
+
+ggplot(chineseData) +
+  geom_line(mapping = aes(x = Year, y = Sichuan_Output, color = "red"))+
+  geom_line(mapping = aes(x = Year, y = Sichuan_Enterprise, color = "blue"))+
+  labs(title="Shichuan output vs.Amount of Enterprise (Southwest China)", x = "Year", y = "")+
+  scale_color_manual(labels = c("Output in RMD per 100 million", "number of Enterprises"), values = c("red", "blue"))
 
 ```
+
+# 3.3 Trend Exploration
+Here we have a comparison of the 8 economic regions of China. The most obious trend is that most of the enterprises and RMD output are on China's coast, which makes sense because China has a large manufacturing economy focused on shipping. Every region's RMD output is signifcantly reduced during the Asian Finanical Crisis in 1998.
+
+
 
 # Isssues with Chinese Statistics
 Chinese Stastics on their economy has been deemed by agencies of modern countries has somewhat unreliable relative to their 
