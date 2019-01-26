@@ -103,3 +103,8 @@ Because of the reasons listed above it is importent to talk about which years ma
 4. __1980's__: (already listed but for different reasons and slightly different range). China suffered large inflation and unemployment, but reported growth when some scholars believe it contracted in 1989.
 
 5. __1998__: Asian Financial Crisis occurs. China still reports growth despite significant decline in certain industries (mostly energy consumption and airline travel). Also when the NBS revised historical data in 2005, 1998 was not given any revision.
+
+# Part 3.2
+```{r, include=FALSE}
+
+```
