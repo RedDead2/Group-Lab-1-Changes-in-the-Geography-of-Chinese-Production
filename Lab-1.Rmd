@@ -60,6 +60,40 @@ p <-ggplot(data = Data, aes(Year, Beijing_Enterprise))
 ###Imports third colum from the Tianjin_Enterprise column changing the bar to a different shade of blue 
 p +geom_bar(stat="identity", aes(fill =Tianjin_Enterprise))
 ```
+#Part 3.4
+###Rename the column names
+names(shanghai) <- c("Year", "Total_Number_of_Employed_Persons_by_10000",
+                     "Employed_Persons_in_UrbanAreas_by_10000", 
+                     "Employed_Persons_in_RuralAreas_by_10000",
+                     "Employed_Persons_in_Primary_Industry_by_10000",
+                     "Employed_Persons_in_Secondary_Industry_by_10000",
+                     "Employed_Persons_by_Tertiary_Industry_by_10000",
+                     "Staffand_Workers_by_10000",
+                     "Staffand_Workers_State_owned_Units_by_10000",
+                     "Staffand_Workers_Urban_Collective_Owned_Units_by_10000",
+                     "Staffand_Workers_Other_Ownership_Units_by_10000")
+#Delete the first 4 rows with the column names as values(nothing else).
+n <- 4
+shanghai_rows <- shanghai[-(1:n), , drop = FALSE]
+#Delate the last 2 rows with the column names as values(nothing else).
+shanghai_rows2 <- head(shanghai_rows, -2)
+#Convert the Year column from string to numeric by inputting a numeric
+#vector with a sequence from 1949 to 2013
+shanghai_rows2$Year <- c(1949:2013) 
+#Taking data from 2004 to 2013(most recent available data)
+shanghai_data <- shanghai_rows2 %>% 
+                 filter(Year > 2003)
+```
+
+```{r }
+library(ggplot2)
+ggplot(shanghai_data) +
+  geom_bar(mapping = aes(x = Year, y = Total_Number_of_Employed_Persons_by_10000), stat = "identity") + 
+  labs(title = "Total Population of the Employed in Shanghai",
+       x = "Year",
+       y = "Total Population(By 10000 persons)") +
+  coord_flip()
+```
 
 #Part 3.5 
 ```{r PART3.5A, include = TRUE}
