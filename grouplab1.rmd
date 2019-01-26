@@ -1,0 +1,144 @@
+---
+title: "Lab 1"
+
+author: "Emmanuel Robi"
+
+date: "January 22, 2019"
+
+output: html_document
+
+---
+```{r Packages, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+```
+
+```{r DATA, include = FALSE}
+(echo = TRUE)
+###Collect data from the "China_EO_49to17.csv" file
+Data <- read.csv("China_EO_49to17.csv", fileEncoding = "latin1")
+```
+
+#Part 1.1
+  Based off the “All China Data Center” our assumption why some cities like Beijing and Shanghai are included in this list of provinces is due to population size. We noted many provinces with a population with 2,000,000 persons or more were considered “Super Large-sized cities”. 
+  Looking in the database there is missing data on some provinces and cities which may be due to the fact that there just wasn’t data collected in the region or data collected was incorrectly. Much of the data comes from the year 2000. On an atlas the part of the People’s Republic of China that may people don’t really focus on is Western China. People are more focused on the eastern parts of China. 
+  
+#Part 1.2
+  It would be more reliable to use older data than current data because of how unreliable China’s information is. There was a lot of faking of data in the 90’. The data between 2000-2011 is considered the most accurate give or take. According to Bloomberg, “If the official data lacks credibility, alternative narratives—like an economy on the verge of a hard landing—can take hold,” says Tom Orlik. To validate this, Economist writes “And China’s national GDP figure is laughably out of line with the sum of its provincial GDP figures. The various levels of government cannot keep their statistical stories straight.” The article articulates on how China has data that doesn’t correspond with other information discrediting the information. Since China has a difficult time concluding there true worth, it has gained a reputation to produce false information. Sara from Forbes writes, “But after years of producing growth even in the darkest of circumstances, China has gained a reputation for possibly overestimating its growth rate.” This further recognizes how the more time goes by, the more unreliable China’s data actually is. 
+
+#Part1 Citations
+https://www.bloomberg.com/news/articles/2018-04-19/china-s-economic-stats-have-a-credibility-problem
+
+https://www.economist.com/finance-and-economics/2018/07/07/chinas-statistics-are-bad-many-criticisms-of-them-are-worse 
+
+https://www.forbes.com/sites/sarahsu/2017/01/23/chinas-gdp-numbers-can-we-trust-the-data/ 
+
+https://www.bloomberg.com/news/articles/2018-04-19/china-s-economic-stats-have-a- 
+
+
+#Part 2.2 Visual 1
+```{r PART2.2 Visual 1, include = TRUE}
+###Create plot that is imported from the Year and Beijing_Enterprise columns
+p <-ggplot(data = Data, aes(Year, Beijing_Enterprise))
+
+###Imports third colum from the Tianjin_Enterprise column changing the bar to a different shade of blue 
+p +geom_bar(stat="identity", aes(fill =Tianjin_Enterprise))
+```
+
+
+#Part 2.2 Visual 2
+```{r PART2.2 Visual 2, include = TRUE}
+###Create plot that is imported from the Year and Ningxia_Enterprise columns
+ggplot(Data, aes(y = Data$Ningxia_Enterprise, x = Year)) + geom_point()
+```
+
+#Part 3.3
+```{r library, include=FALSE}
+library(tidyverse)
+```
+
+```{r data, echo=FALSE}
+data <- read.csv("mychinadatafor_lab1formarkdown.csv")
+```
+
+```{r ratio, echo=FALSE}
+barplot(height=data$Gansu_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main="Gansu Province")
+
+#Made barplot for Gansu Province
+```
+  
+  Within the Gansu Province, the monetary worth of enterprises in Gansu Province began to increase steadily in 1998 to 2000. This ratio then increased sharply up to 2017.
+
+
+
+
+
+```{r beijing, echo=FALSE}
+barplot(height=data$Beijing_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main = "Beijing")
+
+#Made barplot for Beijing
+```
+
+
+For Beijing, the monetary worth of Beijing's enterprises increased from 1998 to 2007. From 2010 to 2012, we can see a sharp increase in this ratio up to 2017. 
+
+
+``` {r recode Shanghai, echo=FALSE}
+
+
+#tw <- is.na(data$Shanghai_Output)
+
+#data$Shanghai_Output[tw] <- 0
+
+data$Year <- data$�..Year
+data$Year <- substring(data$Year,5)
+data$Year <- as.numeric(data$Year)
+
+shang_data <- data %>%
+  select(Year, Shanghai_Output, Shanghai_Enterprise) %>%
+  mutate(Shanghai_Output.Enterprise = Shanghai_Output/Shanghai_Enterprise)
+
+#Recoding Shanghai data to omit the symbols in the "Year" column
+```
+
+```{r shanghai, echo=FALSE}
+barplot(height=shang_data$Shanghai_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main = "Shanghai")
+        
+#Made barplot for Shanghai        
+
+```
+
+
+From 1949 to 1991, the monetary worth of Shanghai's enterprises steadily grew. In 1995, this ratio grew sharply up to 2017.
+
+#Part 3.5 
+```{r PART3.5A, include = TRUE}
+###Create plot that is imported from year and Hebei_Enterprise columns 
+Test1 <-ggplot(data = Data, aes(Year, Hebei_Enterprise))
+
+###Imports third column from the Shaanxi_Enterprise column changing the bar to a different shade of blue
+Test1 +geom_bar(stat="identity", aes(fill =Shaanxi_Enterprise))
+
+#Columns Hebei_Enterprise and Shaanxi_Enterprise during the same years shows a correlation. The provinces show correlation in incline and decline during the same periods of time.
+```
+
+```{r PART3.5B, include = TRUE}
+###Create plot that is imported from year and Shanghai_Enterprise columns 
+Test2 <-ggplot(data = Data, aes(Year, Shanghai_Enterprise))
+
+###Imports third column from the Liaoning_Enterprise column changing the bar to a different shade of blue
+Test2 +geom_bar(stat="identity", aes(fill =Liaoning_Enterprise))
+
+#Columns Shanghai_Enterprise and Liaoning_Enterprise during the same years show a correlation later in the years. Earlier, there doesnt seem to be any correlation
+```
+
+```{r PART3.5C, include = TRUE}
+###Create plot that is imported from year and Zhejiang_Enterprise columns 
+Test3 <-ggplot(data = Data, aes(Year, Zhejiang_Enterprise))
+
+###Imports third column from the Ningxia_Enterprise column changing the bar to a different shade of blue
+Test3 +geom_bar(stat="identity", aes(fill =Ningxia_Enterprise))
+
+#Columns Zhejiang_Enterprise and Ningxia_Enterprise during the same years show a correlation. The provinces show correlation in incline and decline during the same period of time.
+```

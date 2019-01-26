@@ -1,0 +1,66 @@
+---
+title: "Lab 1 Part 3.3"
+author: "Jamie Marken"
+date: "January 24, 2019"
+output: html_document
+---
+
+
+```{r library, include=FALSE}
+library(tidyverse)
+```
+
+```{r data, echo=FALSE}
+data <- read.csv("mychinadatafor_lab1formarkdown.csv")
+```
+
+```{r ratio, echo=FALSE}
+barplot(height=data$Gansu_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main="Gansu Province")
+
+#Made barplot for Gansu Province
+```
+  
+  Within the Gansu Province, the monetary worth of enterprises in Gansu Province began to increase steadily in 1998 to 2000. This ratio then increased sharply up to 2017.
+
+
+
+
+
+```{r beijing, echo=FALSE}
+barplot(height=data$Beijing_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main = "Beijing")
+
+#Made barplot for Beijing
+```
+
+
+For Beijing, the monetary worth of Beijing's enterprises increased from 1998 to 2007. From 2010 to 2012, we can see a sharp increase in this ratio up to 2017. 
+
+
+``` {r recode Shanghai, echo=FALSE}
+
+
+#tw <- is.na(data$Shanghai_Output)
+
+#data$Shanghai_Output[tw] <- 0
+
+data$Year <- data$ï..Year
+data$Year <- substring(data$Year,5)
+data$Year <- as.numeric(data$Year)
+
+shang_data <- data %>%
+  select(Year, Shanghai_Output, Shanghai_Enterprise) %>%
+  mutate(Shanghai_Output.Enterprise = Shanghai_Output/Shanghai_Enterprise)
+
+#Recoding Shanghai data to omit the symbols in the "Year" column
+```
+
+```{r shanghai, echo=FALSE}
+barplot(height=shang_data$Shanghai_Output.Enterprise, names.arg = seq(1949,2017), ylab="Output per Enterprise", xlab="Year", main = "Shanghai")
+        
+#Made barplot for Shanghai        
+
+```
+
+
+From 1949 to 1991, the monetary worth of Shanghai's enterprises steadily grew. In 1995, this ratio grew sharply up to 2017.
+
