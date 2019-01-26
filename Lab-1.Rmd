@@ -18,6 +18,7 @@ library(dplyr)
 (echo = TRUE)
 ###Collect data from the "China_EO_49to17.csv" file
 Data <- read.csv("China_EO_49to17.csv", fileEncoding = "latin1")
+chineseData = read.csv("China_EO_49to17.csv", fileEncoding = "latin1")
 ```
 
 #Part 1.1
@@ -160,7 +161,7 @@ plotRatios(Guangdong_Liaoning)
 ```
 
 When it came to dealing with the NA values, I completely omitted them from the table.  This is because those cells simply have no data to compare with which can skew data if left in.
-```{r}
+
 
 #Part 3.2
 ```{r}
@@ -206,9 +207,12 @@ For Beijing, the monetary worth of Beijing's enterprises increased from 1998 to 
 
 
 ``` {r recode Shanghai, echo=FALSE}
+
+
+
 #tw <- is.na(data$Shanghai_Output)
 #data$Shanghai_Output[tw] <- 0
-data$Year <- data$Ã¯..Year
+data$Year <- data$ï..Year
 data$Year <- substring(data$Year,5)
 data$Year <- as.numeric(data$Year)
 shang_data <- data %>%
@@ -228,6 +232,14 @@ From 1949 to 1991, the monetary worth of Shanghai's enterprises steadily grew. I
 
 #Part 3.4
 ###Rename the column names
+
+```{r A bar plot of the employed population in Shanghai}
+
+library(ggplot2)
+library(stringr)
+shanghai <- read.csv("ShanghaiData.csv")
+shanghai <- as.data.frame(shanghai)
+#Rename the column names
 names(shanghai) <- c("Year", "Total_Number_of_Employed_Persons_by_10000",
                      "Employed_Persons_in_UrbanAreas_by_10000", 
                      "Employed_Persons_in_RuralAreas_by_10000",
