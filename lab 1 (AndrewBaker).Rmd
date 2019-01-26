@@ -105,6 +105,67 @@ Because of the reasons listed above it is importent to talk about which years ma
 5. __1998__: Asian Financial Crisis occurs. China still reports growth despite significant decline in certain industries (mostly energy consumption and airline travel). Also when the NBS revised historical data in 2005, 1998 was not given any revision.
 
 # Part 3.2
-```{r, include=FALSE}
+```{r}
+library(tidyverse)
+object1=read.csv("China_EO_49to17.csv")
+object2=as_tibble(object1)
+#This function returns a table consisting of the province outputs of prov1, prov2, and the output ratio of the two
+outputRatio = function(prov1, prov2){
+colProv1 = paste(prov1, "Output", sep = "_")
+colProv2 = paste(prov2, "Output", sep = "_")
+compareTable = select(object2, Year, colProv1, colProv2)
+compareTable = na.omit(compareTable)
+ratio = compareTable[, 2] / compareTable[, 3]
+ratioTable = cbind(compareTable, ratio)
+colnames(ratioTable) = c("Year", colProv1, colProv2, "Output_Ratio")
+return(ratioTable)
+}
+#This function draws a point and smooth line plot of the province outputs.
+#ratioTable is the resulting table from the outputRatio function.
+plotComparisons = function(ratioTable) {
+ ggplot(data = ratioTable) + 
+   geom_point(mapping = aes(x = Year, y = ratioTable[, 2], color = "red")) + 
+   geom_point(mapping = aes(x = Year, y = ratioTable[, 3], color = "green")) +
+   geom_smooth(mapping = aes(x = Year, y = ratioTable[, 2], color = "red")) + 
+   geom_smooth(mapping = aes(x = Year, y = ratioTable[, 3], color = "green")) +
+   labs(title = paste(colnames(ratioTable[2]), "vs", colnames(ratioTable[3]), sep = " "), y = "Province_Output", color = "Legend") + 
+   scale_color_manual(labels = c(colnames(ratioTable[3]), colnames(ratioTable[2])), values = c("red", "green"))
+}
+#This function draws a point and smooth line plot of the output ratios of the provinces
+#ratioTable is the resulting table from the outputRatio function
+plotRatios = function(ratioTable) {
+ ggplot(data = ratioTable) + geom_smooth(mapping = aes(x = Year, y = Output_Ratio)) +
+   geom_point(mapping = aes(x = Year, y = Output_Ratio)) + 
+   labs(title = paste(colnames(ratioTable[4]), "of", colnames(ratioTable[2]), "and", colnames(ratioTable[3]), sep = " "))
+}
+Shandong_Fujian = outputRatio("Shandong", "Fujian")
+Shandong_Fujian
+plotComparisons(Shandong_Fujian)
+plotRatios(Shandong_Fujian)
+Guangdong_Liaoning = outputRatio("Guangdong", "Liaoning")
+Guangdong_Liaoning
+plotComparisons(Guangdong_Liaoning)
+plotRatios(Guangdong_Liaoning)
+```
+
+When it came to dealing with the NA values, I completely omitted them from the table.  This is because those cells simply have no data to compare with which can skew data if left in.
+
+#Part 3.2
+```{r}
+outputsharechineseData = select(chineseData, Year, contains("Output"))
+
+library(reshape2)
+
+
+outputsharechineseData = melt(outputsharechineseData, id.vars = "Year")
+
+ggplot(na.omit(outputsharechineseData), aes(x = Year, y = value, fill = variable))+
+  geom_bar(stat = "identity")+
+  ggtitle("Output share of each Province")+
+  ylab("Output in RMB per 100 million")
 
 ```
+### Summary
+
+Output of last 7 provinces in the legend decrease sharply after 2010 (most likely due to NA values). Growth increases in all regions until 2010.
+
