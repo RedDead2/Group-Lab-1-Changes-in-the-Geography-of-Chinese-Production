@@ -162,6 +162,19 @@ plotRatios(Guangdong_Liaoning)
 When it came to dealing with the NA values, I completely omitted them from the table.  This is because those cells simply have no data to compare with which can skew data if left in.
 ```{r}
 
+#Part 3.2
+```{r}
+outputsharechineseData = select(chineseData, Year, contains("Output"))
+library(reshape2)
+outputsharechineseData = melt(outputsharechineseData, id.vars = "Year")
+ggplot(na.omit(outputsharechineseData), aes(x = Year, y = value, fill = variable))+
+  geom_bar(stat = "identity")+
+  ggtitle("Output share of each Province")+
+  ylab("Output in RMB per 100 million")
+```
+### Summary
+
+Output of last 7 provinces in the legend decrease sharply after 2010 (most likely due to NA values). Growth increases in all regions until 2010.
 
 #Part 3.3
 ```{r library, include=FALSE}
